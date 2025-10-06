@@ -15,14 +15,11 @@ class Solution {
             }
             r++;
         }
-        System.out.print("starting set" + set);
         while(r < nums.length){
             set.remove(nums[l]);
             l++;
             
             if(set.contains(nums[r])){
-                System.out.print("index:"+ r +" " + nums[r]+ " ");
-                System.out.print("after set" + set);
                 return true;
 
             }else{
@@ -31,7 +28,6 @@ class Solution {
             r++;
             
         }
-        System.out.print("after set" + set);
     return false;
     }
 }
