@@ -5,28 +5,15 @@ class Solution {
             return false;
         }
         int l = 0;
-        int r = 0;
-        while(r < nums.length && r <= l+k){
+        for(int r = 0; r < nums.length; r++){
+            if(r-l > k){
+                set.remove(nums[l]);
+                l++;
+            }
             if(set.contains(nums[r])){
                 return true;
-
-            }else{
-                set.add(nums[r]);
             }
-            r++;
-        }
-        while(r < nums.length){
-            set.remove(nums[l]);
-            l++;
-            
-            if(set.contains(nums[r])){
-                return true;
-
-            }else{
-                set.add(nums[r]);
-            }
-            r++;
-            
+            set.add(nums[r]);
         }
     return false;
     }
