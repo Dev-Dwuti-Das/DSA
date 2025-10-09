@@ -1,6 +1,5 @@
 class Solution {
     public int minSubArrayLen(int target, int[] nums) {
-        List<Integer> ls = new ArrayList<>();
         int temp_sum = 0;
         for(Integer i : nums){
             temp_sum += i;
@@ -11,7 +10,6 @@ class Solution {
         int sum = 0;
         for (int r = 0; r < nums.length; r++) {
             sum += nums[r];
-            ls.add(nums[r]);
             while (sum >= target) {
                 int len = r - l + 1;
                 min_len = Math.min(min_len, len);
