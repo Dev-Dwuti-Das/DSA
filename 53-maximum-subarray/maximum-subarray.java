@@ -17,7 +17,6 @@ class Solution {
                 prefix_sum[i] = sum;
             }
             final_sum = Math.max(sum, final_sum); 
-            System.out.print(prefix_sum[i]);
         }
         if(final_sum == 0){
             Arrays.sort(nums);
