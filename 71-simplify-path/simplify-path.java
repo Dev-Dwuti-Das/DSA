@@ -12,10 +12,6 @@ class Solution {
                 stack.push(c);
             }
         }
-        for (String s : stack) {
-            System.out.print(s);
-        }
-
         return "/" + String.join("/", stack);
     }
 }
