@@ -5,7 +5,7 @@ class Solution {
             if(!tokens[i].equals("+") && !tokens[i].equals("-") && !tokens[i].equals("/") && !tokens[i].equals("*")){
                 stack.push(tokens[i]);
             }
-            else if(!stack.isEmpty() && stack.size() > 1){
+            else if(!stack.isEmpty()){
                 int pop1 = Integer.parseInt(stack.pop());
                 int pop2 = Integer.parseInt(stack.pop());
                 int temp_res = 0;
