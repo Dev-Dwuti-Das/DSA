@@ -17,7 +17,7 @@ class Solution {
 
         for (int j = 0; j < nums.length; j++) {
             if (bool[j]) continue;
-            if ( j>0 && nums[j] == nums[j - 1 ] && !bool[j-1]) { //bhara hua h to 
+            if ( j>0 && nums[j] == nums[j - 1 ] && !bool[j-1]) { //!bool[j-1] agar purana chala hua h to yeah wla mt chala   
                 continue;
             }
             //khali
