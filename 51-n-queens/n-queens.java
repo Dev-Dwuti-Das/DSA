@@ -39,8 +39,6 @@ class Solution {
                 leftrow[j] = 0;
                 lowerdia[i + j] = 0;
                 upperdia[(n - 1) + (j - i)] = 0;
-            }else{
-                continue;
             }
         }
     }
