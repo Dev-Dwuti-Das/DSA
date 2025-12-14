@@ -1,23 +1,26 @@
 class Solution {
     public List<String> letterCombinations(String digits) {
-        String[] list = {" ", " ", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-        List <String> res = new ArrayList<>();
-        int n = digits.length();
-        helper(n, res, "", 0, digits, list); 
+        List<String> res = new ArrayList<>();
+        StringBuilder temp = new StringBuilder();
+        String[] keypad = { " ", " ", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+        backtrack(digits, 0, keypad, temp, res);
         return res;
     }
 
-    public void helper(int n,List <String> res, String temp, int idx, String digits ,String[] list){
-
-        if(temp.length() == n){
-            res.add(temp);
-            return;
+    public void backtrack(String digits, int i, String[] keypad, StringBuilder temp, List<String> res) {
+        if (temp.length() == digits.length()) {
+            res.add(temp.toString());
         }
 
-        String chars = list[digits.charAt(idx) - '0'];
-        char[] ch_arry =  chars.toCharArray();
-        for(Character c : ch_arry){
-            helper(n, res, temp+c, idx+1, digits, list);
-        } 
+        if (i < digits.length()) {
+            int idx = digits.charAt(i) - '0';
+            char[] alpha = keypad[idx].toCharArray();
+            for (Character c : alpha) {
+                temp.append(c);
+                backtrack(digits, i + 1, keypad, temp, res);
+                temp.deleteCharAt(temp.length() - 1);
+            }
+        }
+
     }
 }
