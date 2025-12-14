@@ -2,39 +2,36 @@ class Solution {
     public List<List<String>> partition(String s) {
         List<List<String>> res = new ArrayList<>();
         List<String> temp = new ArrayList<>();
-        backtrack(s, 0, temp, res, s.length());
+        backtrack(s, 0, res, temp);
         return res;
     }
 
-    public void backtrack(String s, int i, List<String> temp,
-                          List<List<String>> res, int n) {
-
-        // ✅ BASE CASE (string fully used)
-        if (i == n) {
+    public void backtrack(String st, int i, List<List<String>> res, List<String> temp) {
+        if (i == st.length()) {
             res.add(new ArrayList<>(temp));
-            return;
         }
 
-        // 🔁 like you build sb, we build substring
-        for (int j = i; j < n; j++) {
-
-            String curr = s.substring(i, j + 1);
-
-            // ✅ palindrome check
-            if (isPalindrome(curr)) {
-                temp.add(curr);                    // choose
-                backtrack(s, j + 1, temp, res, n); // explore
-                temp.remove(temp.size() - 1);      // backtrack
+        for (int j = i; j < st.length(); j++) {
+            String substring = st.substring(i, j + 1);
+            if (ispal(substring)) {
+                temp.add(substring);
+                backtrack(st, j+1, res, temp);
+                temp.remove(temp.size() - 1);
             }
+
         }
+
     }
 
-    public boolean isPalindrome(String str) {
-        int l = 0, r = str.length() - 1;
-        while (l < r) {
-            if (str.charAt(l) != str.charAt(r)) return false;
-            l++;
-            r--;
+    public boolean ispal(String st) {
+        int r = 0;
+        int l = st.length() - 1;
+        while (r <= l) {
+            if (st.charAt(r) != st.charAt(l)) {
+                return false;
+            }
+            r++;
+            l--;
         }
         return true;
     }
