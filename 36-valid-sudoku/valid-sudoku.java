@@ -3,42 +3,20 @@ class Solution {
         return solver(board);
     }
 
-    public boolean solver(char[][] board){
+    public boolean solver(char[][] board) {
+        Set<String> set = new HashSet<>();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.')
+                    continue;
 
-
-        for(int i = 0; i < 9; i++){
-            Set <Character> set = new HashSet<>();
-            for(int j = 0; j < 9; j++){
-                if (board[i][j] == '.') continue;
-                if(!set.add(board[i][j])){
+                if (!set.add(board[i][j] + "row" + i) ||
+                        !set.add(board[i][j] + "cols" + j) ||
+                        !set.add(board[i][j] + "box" + i / 3 + j / 3)) {
                     return false;
                 }
             }
         }
-
-        for(int i = 0; i < 9; i++){
-            Set <Character> set = new HashSet<>();
-            for(int j = 0; j < 9; j++){
-                if (board[j][i] == '.') continue;
-                if(!set.add(board[j][i])){
-                    return false;
-                }
-            }
-        }
-
-        for (int row = 0; row < 9; row += 3) {
-            for (int col = 0; col < 9; col += 3) {
-                Set<Character> set = new HashSet<>();
-                for (int i = row; i < row + 3; i++) {
-                    for (int j = col; j < col + 3; j++) {
-                        if (board[i][j] == '.') continue;
-                        if (!set.add(board[i][j])) {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-    return true;
+        return true;
     }
 }
