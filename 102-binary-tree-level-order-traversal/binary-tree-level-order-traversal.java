@@ -20,15 +20,15 @@ class Solution {
         if(root == null) return res;
         Q.offer(root);
         while(!Q.isEmpty()){
-            int size = Q.size();
             List<Integer> temp = new ArrayList<>();
-            for(int i =  0; i < size; i++){
+            int size = Q.size();
+            for(int i = 0 ; i < size; i++){
                 if(Q.peek().left != null) Q.offer(Q.peek().left);
                 if(Q.peek().right != null) Q.offer(Q.peek().right);
                 temp.add(Q.poll().val);
             }
             res.add(temp);
         }
-        return res;
+    return res;
     }
 }
