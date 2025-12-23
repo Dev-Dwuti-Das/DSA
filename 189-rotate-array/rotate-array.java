@@ -5,9 +5,7 @@ class Solution {
             return;
         }
         int idx = nums.length-k%nums.length;
-        if(idx < 0){
-            idx = 0;
-        }
+       
         for(int i = idx; i < nums.length; i++){
             res.add(nums[i]);
         }
