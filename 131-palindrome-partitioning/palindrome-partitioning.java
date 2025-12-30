@@ -15,7 +15,7 @@ class Solution {
             String substring = st.substring(i, j + 1);
             if (ispal(substring)) {
                 temp.add(substring);
-                backtrack(st, j+1, res, temp);
+                backtrack(st, j+1, res, temp);  //j+1 non naive
                 temp.remove(temp.size() - 1);
             }
 
