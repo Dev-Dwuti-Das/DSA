@@ -17,7 +17,7 @@ class Solution {
     public boolean checkTree(TreeNode root) {
       if(root == null) return true;
       int value = check(root);
-      if(value-root.val == root.val) return true;
+      if(value == 2*root.val) return true;
       return false;
     }
 
@@ -26,7 +26,6 @@ class Solution {
 
       int left = check(root.left);
       int right = check(root.right);
-      System.out.println(root.val + left + right);
       return root.val + left + right;
     }
 }
