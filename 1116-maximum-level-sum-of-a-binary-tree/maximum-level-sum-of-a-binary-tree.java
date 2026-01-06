@@ -51,7 +51,6 @@ class Solution {
         ansKey = key;
       }
     }
-    System.out.print(map);
     return ansKey;
   }
 }
