@@ -29,11 +29,13 @@ class Solution {
 
     public int left(TreeNode root){
       if(root == null) return 0;
-      return 1 + left(root.left);
+      int lh = left(root.left);
+      return 1 + lh;
     }
 
     public int right(TreeNode root){
       if(root == null) return 0;
-      return 1 + right(root.right);
+      int rh = right(root.right);
+      return 1 + rh;
     }
 }
