@@ -39,7 +39,6 @@ class Solution {
             res = item;
             break;
           }
-          System.out.println(item.val);
           node = item.right;
         }
       } 
