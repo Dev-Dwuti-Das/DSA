@@ -14,9 +14,8 @@ class Solution {
     if (row < 0 || col < 0 || row >= image.length || col >= image[0].length) {
       return;
     }
-    if( cc == color || image[row][col] != cc){
+    if( image[row][col] == color || image[row][col] != cc){
       return;
-
     }
 
     image[row][col] = color;
