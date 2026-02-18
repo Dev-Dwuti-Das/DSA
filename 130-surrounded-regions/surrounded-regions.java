@@ -1,4 +1,6 @@
 class Solution {
+
+    //EASY QUESTION H KHUD SE KR
     public void solve(char[][] board) {
 
         for (int i = 0; i < board.length; i++) {
