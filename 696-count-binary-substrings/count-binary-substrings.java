@@ -9,7 +9,7 @@ class Solution {
             int j = i - 1;
             int p = i;
             while (j >= 0 && p < s.length()) {
-                if (p - j + 1 == 2 && s.charAt(j) != s.charAt(p)) {
+                if (p - j + 1 == 2) {
                     count++;
 
                 } else if (s.charAt(j) == s.charAt(j + 1) && s.charAt(p) == s.charAt(p - 1)) {
