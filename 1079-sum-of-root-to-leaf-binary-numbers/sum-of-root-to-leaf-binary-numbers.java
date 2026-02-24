@@ -28,9 +28,7 @@ class Solution {
     public void dfs(TreeNode root, List<String> list, String temp) {
         if(root == null) return;
         if (root.left == null && root.right == null) {
-            int val = root.val;
-            list.add(temp + val);
-            System.out.println(temp + val);
+            list.add(temp + root.val);
             return;
         }
         int val = root.val;
