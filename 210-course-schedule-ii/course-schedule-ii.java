@@ -10,7 +10,7 @@ class Solution {
         }
 
         for (int[] e : edges) {
-            adj.get(e[0]).add(e[1]);
+            adj.get(e[1]).add(e[0]);
         }
 
         int[] inorder = new int[V];
@@ -28,12 +28,12 @@ class Solution {
         }
         
         int count = 0;
-        int i = V-1;
+        int i = 0;
         while (!q.isEmpty()) {
             int item = q.poll();
             count++;
             res[i] = item;
-            i--;
+            i++;
             for (int x : adj.get(item)) {
                 inorder[x]--;
                 if (inorder[x] == 0) {
