@@ -27,7 +27,6 @@ class Solution {
             for (int i = 0; i < word.length(); i++) {
                 char original = word_char[i];
                 for (char ch = 'a'; ch <= 'z'; ch++) {
-                    if (ch == original) continue;
                     word_char[i] = ch;
                     String newstring = new String(word_char);
                     if (newstring.equals(endWord)) {
