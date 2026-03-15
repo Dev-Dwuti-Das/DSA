@@ -36,7 +36,6 @@ class Solution {
                 int ny = y + dir[i][1];
 
                 if(nx >= 0 && nx < n && ny >= 0 && ny < m && grid[nx][ny] == 0){
-                    System.out.println("row :" + nx + "col :" + ny);
                     if(dist[nx][ny] > cost + 1){
                         dist[nx][ny] = cost + 1;
                         q.offer(new int[]{nx,ny,cost + 1});
