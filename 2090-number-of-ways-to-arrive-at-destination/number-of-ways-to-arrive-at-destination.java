@@ -32,7 +32,7 @@ class Solution {
             long cost = item[0];
             int node = (int) item[1];   // ✅ FIX
 
-            if(cost > dist[node]) continue;
+            
 
             for(int[] nei : adj.get(node)){   // ✅ FIX
                 int next = nei[0];
