@@ -32,7 +32,9 @@ class Solution {
             long cost = item[0];
             int node = (int) item[1];   // ✅ FIX
 
-            
+            //bc kya long aur int ka choddddd h 
+
+            //main logic dekhlio firse ek bar
 
             for(int[] nei : adj.get(node)){   // ✅ FIX
                 int next = nei[0];
@@ -40,6 +42,8 @@ class Solution {
 
                 long newDist = cost + weight;
 
+
+                //yeah h main logic yeah dekhlio ma chudae long aur int 
                 if(newDist < dist[next]){
                     dist[next] = newDist;
                     ways[next] = ways[node];
