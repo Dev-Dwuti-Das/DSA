@@ -36,7 +36,6 @@ class Solution {
       int min = count[len-1];
       int res = len-1;
       for(int k = len-1; k >= 0; k--){
-        System.out.println(count[k]);
         if(min > count[k]){
           min = count[k];
           res = k;
