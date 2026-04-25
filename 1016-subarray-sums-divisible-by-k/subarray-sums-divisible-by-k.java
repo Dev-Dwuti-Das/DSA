@@ -10,7 +10,8 @@ class Solution {
       Map <Integer, Integer> map = new HashMap<>();
       for(int j = 0; j < nums.length; j++){
         if(prefix[j]%k == 0) count++;
-        int rem = ((prefix[j] % k) + k)%k;
+        int rem = (prefix[j] % k);
+        if(rem < 0) rem += k;
         if(map.containsKey(rem)){
           count += map.get(rem);
         }
