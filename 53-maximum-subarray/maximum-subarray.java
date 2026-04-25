@@ -7,7 +7,6 @@ class Solution {
         sum += nums[i];
         max = Math.max(max, sum);
         if(sum <= 0) sum = 0;
-        System.out.println(sum + "max :" + max); 
       }
     return max;
     }
