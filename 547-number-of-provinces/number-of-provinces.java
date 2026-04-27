@@ -1,30 +1,37 @@
 class Solution {
-    public int findCircleNum(int[][] isConnected) {
-      int n = isConnected.length;
-      int count = 0;
-      boolean[] isvalid = new boolean[n];
-      for(int i = 0; i < n; i++){
-        if(!isvalid[i]){
-          count++;
-          bfs(i, isConnected, isvalid);
+    int[] parents;
+    public int findCircleNum(int[][] mat) {
+      int len = mat.length;
+      int res = 0;
+      parents = new int[len+1];
+      Set<Integer> set = new HashSet<>();
+      for(int i = 0; i < len; i++){
+        parents[i] = i;
+      }
+
+      for(int i = 0; i < len; i++){
+        for(int j = 0; j < len; j++){
+          if(mat[i][j] == 1 && i != j){
+            int p_i = find(i);
+            int p_j = find(j);
+            if(p_i != p_j) Union(p_i, p_j); 
+          }
         }
       }
-      return count;        
+
+      for(int i = 0; i < len; i++){
+        set.add(find(i));
+      } 
+      return set.size();   
     }
 
-    public void bfs(int node, int[][] isConnected, boolean[] isvalid){
-      Queue<Integer> q = new LinkedList<>();
-      q.offer(node);
-      isvalid[node] = true;
-      while(!q.isEmpty()){
-        int item = q.poll();
-        for(int j = 0; j < isConnected.length; j++){
-           if(isConnected[node][j] == 1 && !isvalid[j]){
-            q.offer(j);
-            isvalid[j] = true; 
-            bfs(j, isConnected, isvalid);
-           }
-        }
-      }
+    public int find(int node){
+        if(parents[node] == node) return node;
+        parents[node] = find(parents[node]);
+        return parents[node];
+    }
+    
+    public void Union(int u, int v){
+        parents[v] = u;
     }
 }
