@@ -21,9 +21,7 @@ class Solution {
         union(P_u,P_v);
       }
       
-    } 
-    System.out.println(extra);
-    System.out.println(connected); 
+    }  
     if(extra + connected < n - 1) return -1;
     return n - connected - 1;      
     }
