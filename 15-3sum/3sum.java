@@ -1,26 +1,38 @@
 class Solution {
   public List<List<Integer>> threeSum(int[] nums) {
-    Arrays.sort(nums);
     List<List<Integer>> res = new ArrayList<>();
     Set<List<Integer>> set = new HashSet<>();
-    for (int pivot = 0; pivot < nums.length - 2; pivot++) {
-      int l = pivot + 1;
-      int r = nums.length - 1;
-      while (l < r) {
-        if (nums[l] + nums[r] + nums[pivot] == 0) {
-          List<Integer> temp = new ArrayList<>();
-          temp.add(nums[l]);
-          temp.add(nums[r]);
-          temp.add(nums[pivot]);
+    Arrays.sort(nums);
+
+    if (nums.length == 3) {
+      if (nums[0] + nums[1] + nums[2] == 0) {
+        List<Integer> temp = new ArrayList<>();
+        temp.add(nums[0]);
+        temp.add(nums[1]);
+        temp.add(nums[2]);
+        res.add(temp);
+        return res;
+      }
+    }
+
+    for (int i = 0; i < nums.length - 2; i++) {
+      int left = i + 1;
+      int right = nums.length - 1;
+      while (left < right) {
+         List<Integer> temp = new ArrayList<>();
+        if (nums[i] + nums[left] + nums[right] == 0) {
+          temp.add(nums[i]);
+          temp.add(nums[left]);
+          temp.add(nums[right]);
           if (set.add(temp)) {
             res.add(temp);
           }
-          l++;
-          r--; //yeah yaaad kari
-        } else if (nums[l] + nums[r] + nums[pivot] > 0) {
-          r--;
+          left++;
+          right--;
+        } else if (nums[i] + nums[left] + nums[right] < 0) {
+          left++;
         } else {
-          l++;
+          right--;
         }
       }
     }
