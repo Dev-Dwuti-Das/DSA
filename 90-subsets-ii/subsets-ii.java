@@ -1,27 +1,25 @@
-import java.util.*;
-
 class Solution {
   public List<List<Integer>> subsetsWithDup(int[] nums) {
+    List<List<Integer>> res = new ArrayList<>();
+    List<Integer> temp = new ArrayList<>();
     Set<List<Integer>> set = new HashSet<>();
-    Arrays.sort(nums); // ⚠️ important (ensures consistent ordering)
-    helper(0, nums, new ArrayList<>(), set);
-    return new ArrayList<>(set);
+    Arrays.sort(nums);
+
+    helper(0, res, temp, nums, set);
+    return res;
+
   }
 
-  public void helper(int i, int[] nums, List<Integer> temp, Set<List<Integer>> set) {
+  public void helper(int i, List<List<Integer>> res, List<Integer> temp, int[] nums, Set<List<Integer>> set) {
     if (i >= nums.length) {
-      set.add(new ArrayList<>(temp)); // ✅ always add copy
-      return;
+      if (set.add(temp)) {
+        res.add(new ArrayList<>(temp));
+      }
+    return;
     }
-
-    // 👉 TAKE
     temp.add(nums[i]);
-    helper(i + 1, nums, temp, set);
-
-    // 👉 BACKTRACK
+    helper(i + 1, res, temp, nums, set);
     temp.remove(temp.size() - 1);
-
-    // 👉 NOT TAKE
-    helper(i + 1, nums, temp, set);
+    helper(i + 1, res, temp, nums, set);
   }
 }
