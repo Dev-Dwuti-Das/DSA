@@ -1,33 +1,27 @@
 class Solution {
-    public List<List<Integer>> combinationSum2(int[] nums, int target) {
-        Arrays.sort(nums);
-        List<Integer> list = new ArrayList<>();
-        List<List<Integer>> res = new ArrayList<>();
-        Set<List<Integer>> set = new HashSet<>();
-        helper(nums, target, 0, 0, list, res);
+  public List<List<Integer>> combinationSum2(int[] cand, int target) {
+    List<List<Integer>> res = new ArrayList<>();
+    List<Integer> temp = new ArrayList<>();
+    Arrays.sort(cand);
+    helper(0, res, temp, cand, target);
+    return res;
+  }
 
-        return res;
+  public void helper(int i, List<List<Integer>> res, List<Integer> temp, int[] nums, int sum) {
+
+    if (sum == 0) {
+      res.add(new ArrayList<>(temp));
+      return;
     }
 
-    public void helper(int[] nums, int target, int i, int sum, List<Integer> list, List<List<Integer>> res) {
-        
-            if (sum == target) {
-                res.add(new ArrayList<>(list));
-                 return;
-            }
-           
-        
-
-        if (sum > target)
-            return;
-
-        for (int j = i; j < nums.length; j++) {
-            if (j > i && nums[j] == nums[j - 1]){
-                continue;
-            }
-            list.add(nums[j]);
-            helper(nums, target, j + 1, sum + nums[j], list, res);
-            list.remove(list.size() - 1);
-        }
+    for (int j = i; j < nums.length; j++) {
+      if (i < j && nums[j - 1] == nums[j]) continue;
+      if(nums[j] > sum) break;
+      
+      temp.add(nums[j]);
+      helper(j + 1, res, temp, nums, sum - nums[j]);
+      temp.remove(temp.size() - 1);
     }
+
+  }
 }
