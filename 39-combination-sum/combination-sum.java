@@ -8,7 +8,7 @@ class Solution {
 
   public void helper(int i, List<Integer> temp, List<List<Integer>> res, int[] cand, int target) {
     if(i >= cand.length || target < 0) return;
-    if (i < cand.length && target == 0){
+    if (target == 0){
      res.add(new ArrayList<>(temp));
      return;
     }
