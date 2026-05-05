@@ -1,38 +1,27 @@
 class Solution {
     public List<List<String>> partition(String s) {
-        List<List<String>> res = new ArrayList<>();
-        List<String> temp = new ArrayList<>();
-        backtrack(s, 0, res, temp);
-        return res;
+      List<List<String>> res = new ArrayList<>();
+      List<String> temp = new ArrayList<>();
+      helper(0, s, temp, res);
+      return res;
     }
 
-    public void backtrack(String st, int i, List<List<String>> res, List<String> temp) {
-        if (i == st.length()) {
-            res.add(new ArrayList<>(temp));
+    public void helper(int i, String s, List<String> temp, List<List<String>> res){
+      if(i == s.length()) res.add(new ArrayList<>(temp));
+      for(int j = i; j < s.length(); j++){
+        String sub = s.substring(i, j+1);
+        if(ispalin(sub)){
+          temp.add(sub);
+          helper(j+1, s, temp, res);
+          temp.remove(temp.size()-1);
         }
-
-        for (int j = i; j < st.length(); j++) {
-            String substring = st.substring(i, j + 1);
-            if (ispal(substring)) {
-                temp.add(substring);
-                backtrack(st, j+1, res, temp);  //j+1 non naive
-                temp.remove(temp.size() - 1);
-            }
-
-        }
-
+      }
     }
 
-    public boolean ispal(String st) {
-        int r = 0;
-        int l = st.length() - 1;
-        while (r <= l) {
-            if (st.charAt(r) != st.charAt(l)) {
-                return false;
-            }
-            r++;
-            l--;
-        }
-        return true;
+    public boolean ispalin(String s){
+      StringBuilder sb = new StringBuilder(s);
+      sb.reverse();
+      if(s.equals(sb.toString())) return true;
+      return false;
     }
 }
