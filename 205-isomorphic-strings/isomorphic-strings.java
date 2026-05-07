@@ -12,7 +12,6 @@ class Solution {
       for(int j = 0; j < s.length(); j++){
         sb.append(map.get(s.charAt(j)));
       }
-    System.out.print(sb.toString());
     return sb.toString().equals(t);
     }
 }
