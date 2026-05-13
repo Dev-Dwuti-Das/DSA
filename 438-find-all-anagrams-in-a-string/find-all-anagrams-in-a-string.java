@@ -11,7 +11,7 @@ class Solution {
       int right = 0;
 
       while(right < s.length()){
-        while(right - left < p.length() - 1){
+        while(right - left + 1 < p.length()){
           freq_s[s.charAt(right) - 'a']++;
           right++;
         }
