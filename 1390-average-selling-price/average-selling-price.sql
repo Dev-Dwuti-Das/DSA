@@ -3,8 +3,8 @@ select p.product_id,
   round(
     ifnull(
       sum(p.price * u.units)/sum(u.units)
-    , 0),
-  2)
+    , 0)
+  ,2)
   as average_price
 from Prices as p
 left join UnitsSold as u on u.product_id = p.product_id 
