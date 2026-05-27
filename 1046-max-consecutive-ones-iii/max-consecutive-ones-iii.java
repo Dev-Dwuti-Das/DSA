@@ -7,15 +7,14 @@ class Solution {
       
 
       while(right < nums.length){
-        if(nums[right] == 0){
-          temp_k--;
-        }
-        
         while(temp_k < 0){
           if(nums[left] == 0){
             temp_k++;
           }
           left++;
+        }
+        if(nums[right] == 0){
+          temp_k--;
         }
       
         if(temp_k >= 0){
