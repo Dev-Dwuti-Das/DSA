@@ -4,6 +4,7 @@ class Solution {
       int right = 0;
       int temp_k = k;
       int max = Integer.MIN_VALUE;
+      
 
       while(right < nums.length){
         if(nums[right] == 0){
