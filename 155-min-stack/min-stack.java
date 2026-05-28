@@ -18,6 +18,7 @@ class MinStack {
 
   public void pop() {
     int val = st.pop();
+
     if (val == min.peek()) {
       min.pop();
       if (st.isEmpty()) {
