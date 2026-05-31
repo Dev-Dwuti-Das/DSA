@@ -7,7 +7,7 @@ class Solution {
         st.pop();
       }
       if (!st.isEmpty() && st.peek() > 0 && val < 0) {
-        if (st.peek() == Math.abs(val)) {
+        if (Math.abs(st.peek()) == Math.abs(val)) {
           st.pop();
         }
       }else{
