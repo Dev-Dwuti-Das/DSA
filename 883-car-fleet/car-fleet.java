@@ -1,27 +1,24 @@
 class Solution {
     public int carFleet(int target, int[] pos, int[] speed) {
-       int n = pos.length;
-       Stack <Double> stack = new Stack<>();
-       int[][] cars = new int[n][2];
+      Stack <Double> st = new Stack<>();
+      int[][] mat = new int[pos.length][2];
 
-       for(int i = 0; i < n; i ++){
-        cars[i][0] = pos[i];
-        cars[i][1] = speed[i];
-       }
+      for(int i = 0; i < pos.length; i++){
+        mat[i][0] = pos[i];
+        mat[i][1] = speed[i];
+      }
+
+      Arrays.sort(mat,(a,b) -> Integer.compare(a[0], b[0]));
+
+      for(int i = pos.length-1; i >= 0; i--){
+        double time = (double)(target - mat[i][0])/mat[i][1];
+
+        if(!st.isEmpty() && time <= st.peek()){
+          continue;
+        } 
+        st.push(time);
+      }
+    return st.size();
         
-        Arrays.sort(cars, (a,b) -> b[0] - a[0]);
-
-        for(int i = 0; i < n; i++){
-            boolean flag = false;
-            double time = (double)(target - cars[i][0])/cars[i][1];
-            if(!stack.isEmpty() && time <= stack.peek()){
-                flag = true;
-            }
-            if(!flag){
-                stack.push(time);
-            }
-        }
-
-        return stack.size();
     }
 }
