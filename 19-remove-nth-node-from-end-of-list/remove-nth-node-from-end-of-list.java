@@ -14,9 +14,6 @@ class Solution {
     ListNode curr = dummy;
     ListNode right = dummy;
 
-    if (head == null || head.next == null)
-      return null;
-
     for (int i = 0; i <= n; i++) {
       right = right.next;
     }
