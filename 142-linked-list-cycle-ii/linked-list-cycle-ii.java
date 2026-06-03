@@ -25,9 +25,13 @@ public class Solution {
 
       if(fast == null || fast.next == null ) return null;
 
-      while(slow.next != null && p1 != slow){
+      if(p1 == slow) return p1;
+
+      while(p1 != null){
         p1 = p1.next;
         slow = slow.next;
+
+        if(p1 == slow) break;
       }
       return p1; 
     }
