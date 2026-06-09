@@ -27,9 +27,5 @@ class Solution {
       boolean way2 = dfs(left.right, right.left);
 
       return way1 && way2;
-
-
-
-
     }
 }
