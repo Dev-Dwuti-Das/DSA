@@ -25,13 +25,11 @@ class Solution {
 
       if(p == null || q == null || p.val != q.val) return false;
       
-     
-
       boolean left = dfs(p.left, q.left);
-      if(!left) return false;
+      
 
       boolean right = dfs(p.right, q.right);
-      if(!right) return false;
+      
 
       return right && left;
     }
