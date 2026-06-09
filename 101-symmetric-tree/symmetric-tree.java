@@ -14,22 +14,22 @@
  * }
  */
 class Solution {
-  public boolean isSymmetric(TreeNode root) {
-    if (root == null)
-      return true;
-    return iss(root.left, root.right);
-  }
-
-  public boolean iss(TreeNode left, TreeNode right) {
-
-    if (left == null && right == null)
-      return true;
-    if (left == null && right != null || right == null && left != null)
-      return false;
-
-    if (left.val != right.val) {
-      return false;
+    public boolean isSymmetric(TreeNode root) {
+        return dfs(root.left, root.right);
     }
-    return iss(left.left, right.right) && iss(left.right, right.left);
-  }
+
+    public boolean dfs(TreeNode left, TreeNode right){
+
+      if(left == null && right == null) return true;
+      if(left == null || right == null || left.val != right.val) return false;
+
+      boolean way1 = dfs(left.left, right.right);
+      boolean way2 = dfs(left.right, right.left);
+
+      return way1 && way2;
+
+
+
+
+    }
 }
