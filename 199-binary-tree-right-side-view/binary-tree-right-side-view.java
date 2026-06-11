@@ -13,43 +13,19 @@
  *     }
  * }
  */
-
-class Pair {
-  TreeNode node;
-  int row;
-
-  Pair(TreeNode node, int row) {
-    this.node = node;
-    this.row = row;
-  }
-}
-
 class Solution {
-  public List<Integer> rightSideView(TreeNode root) {
-    List<Integer> res = new ArrayList<>();
-    Queue<Pair> Q = new LinkedList<>();
-    TreeMap<Integer, Stack<Integer>> map = new TreeMap<>();
-    if (root == null)
+    public List<Integer> rightSideView(TreeNode root) {
+      List<Integer> res = new ArrayList<>();
+      dfs(root, 0, res);
       return res;
-    Q.add(new Pair(root, 0));
-
-    while (!Q.isEmpty()) {
-      Pair item = Q.poll();
-      TreeNode node = item.node;
-      int row = item.row;
-      if (node.left != null)
-        Q.add(new Pair(node.left, row + 1));
-      if (node.right != null)
-        Q.add(new Pair(node.right, row + 1));
-      map.putIfAbsent(row, new Stack<>());
-      map.get(row).push(node.val);
     }
 
-    for (Stack<Integer> item : map.values()) {
-      res.add(item.pop());
+    public void dfs(TreeNode root, int height, List<Integer> res){
+      if(root == null) return;
+
+      if(height == res.size()) res.add(root.val);
+
+      dfs(root.right, height + 1, res);
+      dfs(root.left, height + 1, res);
     }
-
-    return res;
-
-  }
 }
