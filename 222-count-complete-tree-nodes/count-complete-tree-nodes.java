@@ -14,28 +14,36 @@
  * }
  */
 class Solution {
-    public int countNodes(TreeNode root) {
-      int res = helper(root); 
-      return res;
-    }
+  public int countNodes(TreeNode root) {
+    return helper(root);
+  }
 
-    public int helper(TreeNode root){
-      if(root == null) return 0;
-      int lh = left(root);
-      int rh = right(root);
-      if(lh == rh) return (int)Math.pow(2, lh) - 1;
-      return 1 + helper(root.left) + helper(root.right);
-    }
+  public int helper(TreeNode root) {
+    if (root == null)
+      return 0;
 
-    public int left(TreeNode root){
-      if(root == null) return 0;
-      int lh = left(root.left);
-      return 1 + lh;
-    }
+    int left_height = heightleft(root);
+    int right_height = heightright(root);
 
-    public int right(TreeNode root){
-      if(root == null) return 0;
-      int rh = right(root.right);
-      return 1 + rh;
-    }
+    if (left_height != 0 && left_height == right_height)
+      return (int) Math.pow(2, left_height) - 1;
+
+    int nodeleft = helper(root.left);
+    int noderight = helper(root.right);
+
+    return 1 + nodeleft + noderight;
+  }
+
+  public int heightleft(TreeNode root) {
+    if (root == null)
+      return 0;
+    return 1 + heightleft(root.left);
+  }
+
+  public int heightright(TreeNode root) {
+    if (root == null)
+      return 0;
+    return 1 + heightright(root.right);
+  }
+
 }
