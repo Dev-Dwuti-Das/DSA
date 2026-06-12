@@ -25,7 +25,7 @@ class Solution {
     int left_height = heightleft(root);
     int right_height = heightright(root);
 
-    if (left_height != 0 && left_height == right_height)
+    if (left_height == right_height)
       return (int) Math.pow(2, left_height) - 1;
 
     int nodeleft = helper(root.left);
