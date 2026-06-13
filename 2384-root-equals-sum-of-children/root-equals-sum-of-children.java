@@ -15,17 +15,12 @@
  */
 class Solution {
     public boolean checkTree(TreeNode root) {
-      if(root == null) return true;
-      int value = check(root);
-      if(value == 2*root.val) return true;
-      return false;
+      return root.left.val + root.right.val == root.val;
     }
 
-    public int check(TreeNode root){
-      if(root == null) return 0;
+    // public boolean dfs(TreeNode root){
+    //   if(root == null) false;
 
-      int left = check(root.left);
-      int right = check(root.right);
-      return root.val + left + right;
-    }
+    //   int 
+    // } 
 }
