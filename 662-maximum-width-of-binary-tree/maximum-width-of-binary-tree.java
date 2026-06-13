@@ -13,38 +13,41 @@
  *     }
  * }
  */
-class Pair{
+
+class pair{
   TreeNode node;
-  int idx;
-  Pair(TreeNode root, int col){
-    this.node = root;
-    this.idx = col;
+  int col;
+
+  pair(TreeNode node, int col){
+    this.node = node;
+    this.col = col;
   }
 }
 
 class Solution {
     public int widthOfBinaryTree(TreeNode root) {
-      int res = 0;
-      Queue <Pair> Q = new LinkedList<>();
-      if(root == null) return 0;
-      Q.offer(new Pair(root, 0));
-      
-      while(!Q.isEmpty()){
-        int left = 0;
-        int right = 0;
-        int size = Q.size();
-        int min = Q.peek().idx;
-        for(int i = 0; i < size; i++){
-          Pair item = Q.poll();
-          int index = item.idx - min;
-          if(i == 0) left = index;
-          if(i == size-1) right = index;
-          if(item.node.left != null) Q.offer(new Pair(item.node.left, 2*index+1));
-          if(item.node.right != null) Q.offer(new Pair(item.node.right, 2*index+2));
-        }
+      int maxi = Integer.MIN_VALUE; 
+      Queue<pair> q = new LinkedList<>();
+      q.offer(new pair(root, 0));
 
-      res = Math.max(res, right - left + 1);
-      }
-    return res;
+      while(!q.isEmpty()){
+        pair item = q.peek();
+        TreeNode node = item.node;
+        int min = item.col;
+        int size = q.size();
+        int start = 0;
+        int end = 0;
+        for(int i = 0; i < size; i++){
+          pair child = q.poll();
+          if(i == 0) start = child.col;
+          if(i == size-1) end = child.col;
+          TreeNode node1 = child.node;
+          int col = child.col; 
+          if(node1.left != null) q.offer(new pair(node1.left, (2*col + 1) - min));
+          if(node1.right != null) q.offer(new pair(node1.right, (2*col + 2) - min));
+        }
+        maxi = Math.max(maxi, end - start + 1);
+      } 
+      return maxi;
     }
 }
