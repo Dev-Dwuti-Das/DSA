@@ -43,8 +43,8 @@ class Solution {
           if(i == size-1) end = child.col;
           TreeNode node1 = child.node;
           int col = child.col; 
-          if(node1.left != null) q.offer(new pair(node1.left, (2*col + 1) - min));
-          if(node1.right != null) q.offer(new pair(node1.right, (2*col + 2) - min));
+          if(node1.left != null) q.offer(new pair(node1.left, (2*col + 1)));
+          if(node1.right != null) q.offer(new pair(node1.right, (2*col + 2)));
         }
         maxi = Math.max(maxi, end - start + 1);
       } 
