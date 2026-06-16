@@ -14,26 +14,26 @@
  * }
  */
 class Solution {
-  HashMap<Integer, Integer> map = new HashMap<>();
   int idx;
+  HashMap<Integer, Integer> map = new HashMap<>();
+
   public TreeNode buildTree(int[] inorder, int[] postorder) {
-    idx = postorder.length - 1;
+    idx = postorder.length-1;
     for(int i = 0; i < postorder.length; i++){
       map.put(inorder[i], i);
     }
-    return helper(inorder, postorder, 0, postorder.length-1);
+    return helper(inorder, postorder, 0, idx);
   }
 
-  public TreeNode helper(int[] inorder, int[] postorder, int st, int end){
-    if(st > end) return null;
+  public TreeNode helper(int[] inorder, int[] postorder, int start, int end){
+    if(start > end) return null;
 
-    TreeNode node = new TreeNode(postorder[idx]);
-    idx--;
+    TreeNode node = new TreeNode(postorder[idx--]);
     int curr = map.get(node.val);
 
-    node.right = helper(inorder, postorder, curr+1, end);
-    node.left = helper(inorder, postorder, st, curr-1);
-
+    node.right = helper(inorder, postorder, curr + 1, end);
+    node.left = helper(inorder, postorder, start, curr-1);
     return node;
   }
+  
 }
