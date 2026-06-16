@@ -18,22 +18,23 @@ class Solution {
   Map<Integer, Integer> map = new HashMap<>();
 
   public TreeNode buildTree(int[] preorder, int[] inorder) {
-    for(int i = 0; i < inorder.length; i++){
+
+    for (int i = 0; i < preorder.length; i++) {
       map.put(inorder[i], i);
     }
-      return helper(preorder, inorder, 0 , inorder.length-1);
-    }
+    return helper(preorder, inorder, 0, inorder.length - 1);
+  }
 
-  public TreeNode helper(int[] preorder, int[] inorder,int ins, int ine){
-    if(ins > ine) return null;
+  public TreeNode helper(int[] preorder, int[] inorder, int start, int end) {
+    if (start > end)
+      return null;
 
-    TreeNode tree = new TreeNode(preorder[idx++]);
-    int mid = map.get(tree.val);
-  
+    TreeNode node = new TreeNode(preorder[idx++]);
+    int curr = map.get(node.val);
 
-    tree.left = helper(preorder, inorder, ins, mid-1);
-    tree.right = helper(preorder, inorder, mid+1, ine); 
+    node.left = helper(preorder, inorder, start, curr - 1);
+    node.right = helper(preorder, inorder, curr + 1, end);
 
-    return tree;
+    return node;
   }
 }
