@@ -13,37 +13,42 @@
  *     }
  * }
  */
+
+class pair {
+  TreeNode root;
+  int level;
+
+  public pair(TreeNode root, int level) {
+    this.root = root;
+    this.level = level;
+  }
+}
+
 class Solution {
   public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-    List<List<Integer>> res = new ArrayList<>();
-    Queue<TreeNode> Q = new LinkedList<>();
-    zz(root, res, 0, Q);
-    return res;
-  }
+      if(root == null) return new ArrayList<>();
 
-  public void zz(TreeNode root, List<List<Integer>> res, int count, Queue<TreeNode> Q) {
-    if (root == null)
-      return;
-    Q.offer(root);
-    while (!Q.isEmpty()) {
-      List<Integer> temp = new ArrayList<>();
-      int size = Q.size();
-      int i = 0;
-      while (i < size) {
-         if (Q.peek().left != null) {
-            Q.offer(Q.peek().left);
-          }
-          if (Q.peek().right != null) {
-            Q.offer(Q.peek().right);
-          }    
-          if (count % 2 == 0) {
-            temp.add(Q.poll().val);
-          }else{
-            temp.add(0, Q.poll().val);
-          }        
-        i++;
+      List<List<Integer>> res = new ArrayList<>();
+      Queue<pair> q = new LinkedList<>();
+      q.offer(new pair(root, 0));
+
+      while(!q.isEmpty()){
+        int size = q.size();
+        int num = q.peek().level;
+        List<Integer> temp = new ArrayList<>();
+        for(int i = 0; i < size; i++){
+          pair item = q.poll();
+          TreeNode node = item.root;
+          temp.add(node.val);
+          int lvl = item.level;
+          if(node.left != null) q.offer(new pair(node.left, lvl+1));
+          if(node.right != null) q.offer(new pair(node.right, lvl+1));
+        }
+        if(num%2 != 0){
+          Collections.reverse(temp);
+        }
+        res.add(temp);
       }
-      res.add(temp);
-      count++;
+      return res;
     }
-}}
+}
