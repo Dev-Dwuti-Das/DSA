@@ -8,58 +8,64 @@
  * }
  */
 class Solution {
-  public void baap(TreeNode root, Map<TreeNode, TreeNode> parent) {
-    Queue<TreeNode> Q = new LinkedList<>();
-    Q.offer(root);
-    while (!Q.isEmpty()) {
-      TreeNode item = Q.poll();
-      if (item.left != null) {
-        Q.add(item.left);
-        parent.put(item.left, item);
-      }
-
-      if (item.right != null) {
-        Q.add(item.right);
-        parent.put(item.right, item);
-      }
-
-    }
-  }
-
-  public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-    Map<TreeNode, TreeNode> parent = new HashMap<>();
-    baap(root, parent);
+  public List<Integer> distanceK(TreeNode root, TreeNode target, int p) {
+    Map<TreeNode, TreeNode> parentmap = new HashMap<>();
+    ArrayList<Integer> res = new ArrayList<>();
+    parent(parentmap, root);
     Map<TreeNode, Boolean> visited = new HashMap<>();
-    Queue<TreeNode> Q = new LinkedList<>();
-    Q.offer(target);
+    Queue<TreeNode> q = new LinkedList<>();
+    int k = 0;
+    q.offer(target);
     visited.put(target, true);
-    int lvl = 0;
-    while (!Q.isEmpty()) {
-      int size = Q.size();
-      if (lvl == k)
+
+    while (!q.isEmpty()) {
+      int size = q.size();
+      if (k == p)
         break;
-      lvl++;
       for (int i = 0; i < size; i++) {
-        TreeNode item = Q.poll();
-        if (item.left != null && visited.get(item.left) == null) {
-          Q.add(item.left);
+        TreeNode item = q.poll();
+        if (visited.get(item.left) == null && item.left != null) {
           visited.put(item.left, true);
+          q.offer(item.left);
         }
-        if (item.right != null && visited.get(item.right) == null) {
-          Q.add(item.right);
+        if (visited.get(item.right) == null && item.right != null) {
           visited.put(item.right, true);
+          q.offer(item.right);
         }
-        if (parent.get(item) != null && visited.get(parent.get(item)) == null) {
-          Q.add(parent.get(item));
-          visited.put(parent.get(item), true);
+        if (visited.get(parentmap.get(item)) == null && parentmap.get(item) != null) {
+          visited.put(parentmap.get(item), true);
+          q.offer(parentmap.get(item));
         }
+
       }
+      k++;
     }
 
-    List<Integer> res = new ArrayList<>();
-    while (!Q.isEmpty()) {
-      res.add(Q.poll().val);
+    while (!q.isEmpty()) {
+      res.add(q.poll().val);
     }
+
     return res;
+
   }
+
+  public void parent(Map<TreeNode, TreeNode> map, TreeNode root) {
+    Queue<TreeNode> q = new LinkedList<>();
+    map.put(root, null);
+    q.offer(root);
+
+    while (!q.isEmpty()) {
+      TreeNode item = q.poll();
+
+      if (item.left != null) {
+        q.offer(item.left);
+        map.put(item.left, item);
+      }
+      if (item.right != null) {
+        q.offer(item.right);
+        map.put(item.right, item);
+      }
+    }
+  }
+
 }
