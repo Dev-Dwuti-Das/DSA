@@ -14,20 +14,22 @@
  * }
  */
 class Solution {
-  TreeNode prev = null;
-
   public void flatten(TreeNode root) {
-    helper(root);
+    List<TreeNode> temp = new ArrayList<>();
+    dfs(root, temp);
+    // if(temp.size() < 2)
+    for (int i = 0; i <= temp.size() - 2; i++) {
+      temp.get(i).right = temp.get(i + 1);
+      temp.get(i).left = null;
+    }
+
   }
 
-  public void helper(TreeNode root) {
+  public void dfs(TreeNode root, List<TreeNode> temp) {
     if (root == null)
       return;
-
-    helper(root.right);
-    helper(root.left);
-    root.left = null;
-    root.right = prev;
-    prev = root;
+    temp.add(root);
+    dfs(root.left, temp);
+    dfs(root.right, temp);
   }
 }
