@@ -14,34 +14,20 @@
  * }
  */
 class Solution {
+  int min = 0;
+  int count = 0;
     public int kthSmallest(TreeNode root, int k) {
-    Stack <TreeNode> stack = new Stack<>();
-    TreeNode resnode = inorder(root, k, stack);    
-    return resnode.val;
+      preorder(root, k);
+      return min;
     }
 
-    public TreeNode inorder(TreeNode root,int k, Stack <TreeNode> stack){
-      if(root == null) return null;
-      TreeNode node = root;
-      TreeNode res = null;
-      int z = 0;
-      while(true){
-        if(node != null){
-          stack.push(node);
-          node = node.left;
-        }else{
-          if(stack.isEmpty()){
-            break;
-          }
-          TreeNode item = stack.pop();
-          z++;
-          if(z == k){
-            res = item;
-            break;
-          }
-          node = item.right;
-        }
-      } 
-      return res;    
+    public void preorder(TreeNode root, int k){
+      if(root == null) return;
+      preorder(root.left, k);
+      count++;
+      if(count == k){
+        min = root.val;
+      }
+      preorder(root.right, k);      
     }
 }
