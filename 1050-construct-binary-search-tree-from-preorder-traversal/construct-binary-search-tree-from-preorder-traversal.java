@@ -14,31 +14,34 @@
  * }
  */
 class Solution {
-  int idx= 0;
-    public TreeNode bstFromPreorder(int[] preorder) {
-      TreeNode root = new TreeNode(preorder[idx++]);
-      helper(preorder, Integer.MAX_VALUE, root);
-      return root;
+  int idx = 0;
+  Map<Integer, Integer> map;
+
+  public TreeNode bstFromPreorder(int[] preorder) {
+    map = new HashMap<>();
+    int[] inorder = new int[preorder.length];
+    for (int i = 0; i < inorder.length; i++) {
+      inorder[i] = preorder[i];
+    }
+    Arrays.sort(inorder);
+
+    for (int i = 0; i < preorder.length; i++) {
+      map.put(inorder[i], i);
     }
 
+    return helper(0, preorder.length - 1, inorder, preorder);
+  }
 
-    public void helper(int[] preorder, int UB,  TreeNode root){
-      if( root == null || idx >= preorder.length ) return;
+  public TreeNode helper(int st, int end, int[] inorder, int[] preorder) {
+    if (st > end)
+      return null;
 
-      if(idx < preorder.length && preorder[idx] < root.val ){
-        root.left = new TreeNode(preorder[idx++]);
-        helper(preorder, root.val, root.left);
-      }
-      else{
-        root.left = null;
-      }
+    TreeNode node = new TreeNode(preorder[idx++]);
+    int mid = map.get(node.val);
 
-      if(idx < preorder.length && preorder[idx] > root.val && preorder[idx] < UB){
-        root.right = new TreeNode(preorder[idx++]);
-        helper(preorder, UB, root.right);
-      }
-      else{
-        root.right = null;
-      }      
-    }
+    node.left = helper(st, mid - 1, inorder, preorder);
+    node.right = helper(mid + 1, end, inorder, preorder);
+
+    return node;
+  }
 }
