@@ -34,15 +34,15 @@ class Solution {
       }
     }
 
-    System.out.print(j);
+    // System.out.print(j);
 
     while (i > 0) {
-      sb.append(s1.charAt(i - 1));
+      sb.append(s1.charAt(i-1));
       i--;
     }
 
     while (j > 0) {
-      sb.append(s2.charAt(j - 1));
+      sb.append(s2.charAt(j-1));
       j--;
     }
 
