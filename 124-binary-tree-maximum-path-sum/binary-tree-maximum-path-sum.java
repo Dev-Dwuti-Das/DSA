@@ -27,6 +27,7 @@ class Solution {
 
     int left = dfs(root.left);
     left = (left < 0) ? 0 : left; 
+    
     int right = dfs(root.right);
     right = (right < 0) ? 0 : right;
 
