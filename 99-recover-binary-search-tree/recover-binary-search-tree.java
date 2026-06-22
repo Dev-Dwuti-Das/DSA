@@ -14,41 +14,28 @@
  * }
  */
 class Solution {
-  TreeNode first;
-  TreeNode mid;
-  TreeNode last;
-  TreeNode prev;
+  int idx = 0;
+    public void recoverTree(TreeNode root) {
+      List<Integer> temp = new ArrayList<>();
+      dfs(root, temp);
+      Collections.sort(temp); //inorder;
+      validate(root, temp);
+    }
 
-  public void inorder(TreeNode root) {
-    if (root == null)
-      return;
-    inorder(root.left);
-    if (prev.val > root.val) {
-      if (first == null) {
-        first = prev;
-        mid = root;
-      } else {
-        last = root;
+    public void validate(TreeNode root, List<Integer> temp){
+      if(root == null) return;
+      validate(root.left, temp);
+      if(root.val != temp.get(idx)){
+        root.val = temp.get(idx);
       }
+      idx++;
+      validate(root.right, temp);
     }
-    prev = root;
-    inorder(root.right);
-  }
 
-  public void recoverTree(TreeNode root) {
-    if (root == null)
-      return;
-    first = mid = last = null;
-    prev = new TreeNode(Integer.MIN_VALUE);
-    inorder(root);
-    if (first != null && last != null) {
-      int temp = last.val;
-      last.val = first.val;
-      first.val = temp;
-    } else if(first != null && mid !=null){
-      int temp = mid.val;
-      mid.val = first.val;
-      first.val = temp;
+    public void dfs(TreeNode root, List<Integer> temp){
+      if (root == null) return;
+      temp.add(root.val);
+      dfs(root.left, temp);
+      dfs(root.right, temp);
     }
-  }
 }
