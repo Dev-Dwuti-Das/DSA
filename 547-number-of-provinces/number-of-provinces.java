@@ -1,37 +1,42 @@
 class Solution {
-    int[] parents;
-    public int findCircleNum(int[][] mat) {
-      int len = mat.length;
-      int res = 0;
-      parents = new int[len+1];
-      Set<Integer> set = new HashSet<>();
-      for(int i = 0; i < len; i++){
-        parents[i] = i;
-      }
+  public int findCircleNum(int[][] graph) {
+    int count = 0;
+    List<List<Integer>> adj = new ArrayList<>();
 
-      for(int i = 0; i < len; i++){
-        for(int j = 0; j < len; j++){
-          if(mat[i][j] == 1 && i != j){
-            int p_i = find(i);
-            int p_j = find(j);
-            if(p_i != p_j) Union(p_i, p_j); 
-          }
+    for (int i = 0; i < graph.length; i++) {
+      adj.add(new ArrayList<>());
+    }
+    boolean[] visited = new boolean[graph.length];
+
+    //adj matrix to adj list
+    for (int i = 0; i < graph.length; i++) {
+      for (int j = 0; j < graph[0].length; j++) {
+        if (i != j && graph[i][j] == 1) {
+          adj.get(i).add(j);
         }
       }
-
-      for(int i = 0; i < len; i++){
-        set.add(find(i));
-      } 
-      return set.size();   
     }
 
-    public int find(int node){
-        if(parents[node] == node) return node;
-        parents[node] = find(parents[node]);
-        return parents[node];
+    for (int i = 0; i < graph.length; i++) {
+      if (!visited[i]) {
+        count++;
+        dfs(i, graph, visited, adj);
+      }
     }
-    
-    public void Union(int u, int v){
-        parents[v] = u;
+
+    return count;
+
+  }
+
+  public void dfs(int i, int[][] graph, boolean[] visited, List<List<Integer>> adj) {
+
+    visited[i] = true;
+    for (int child : adj.get(i)) {
+      if (!visited[child]) {
+        dfs(child, graph, visited, adj);
+      }
+
     }
+
+  }
 }
