@@ -3,22 +3,28 @@ class Solution {
 
   public int[][] floodFill(int[][] image, int sr, int sc, int color) {
     boolean[][] visited = new boolean[image.length][image[0].length];
-    dfs(sr, sc, color, image, image[sr][sc]);
-    return image;
-  }
+    Queue<int[]> q = new LinkedList<>();
+    q.offer(new int[]{sr,sc});
 
-  public void dfs(int i, int j, int color, int[][] image, int precol) {
-    if (i >= image.length || j >= image[0].length
-        || i < 0 || j < 0 || image[i][j] != precol || image[i][j] == color)
-      return;
-    
-    int prevcol = image[i][j];
-    image[i][j] = color;
+    while(!q.isEmpty()){
+      int[] item = q.poll();
+      int x = item[0];
+      int y = item[1];
 
-    for (int[] d : dir) {
-      int nr = i + d[0];
-      int nc = j + d[1];
-      dfs(nr, nc, color, image, prevcol);
+      int prev_col = image[x][y];
+      image[x][y] = color;
+
+      for(int[] nei : dir){
+        int nr = x + nei[0];
+        int nc = y + nei[1];
+        if (nr < image.length && nc < image[0].length && nr >= 0 && nc >= 0 && image[nr][nc] == prev_col && image[nr][nc] != color){
+          q.offer(new int[]{nr, nc});
+        }
+      }      
     }
+  return image;
   }
+
+  
 }
+//|| image[i][j] == color)
