@@ -1,36 +1,26 @@
 class Solution {
-    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
-        int n = image.length;
-        int m = image[0].length;
-        boolean[][] visited = new boolean[n][m];
-        Queue<int[]> q = new LinkedList<>();
-        q.add(new int[] { sr, sc });
-        visited[sr][sc] = true;
-        int curcol = image[sr][sc];
-        image[sr][sc] = color;
-        System.out.print(image[sr][sc]);
+  int[][] dir = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 
-        int[][] dir = {
-                { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 }
-        };
+  public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+    boolean[][] visited = new boolean[image.length][image[0].length];
+    dfs(sr, sc, color, image, visited, image[sr][sc]);
+    return image;
+  }
 
-        while (!q.isEmpty()) {
-            int[] item = q.poll();
-            int r = item[0];
-            int c = item[1];
+  public void dfs(int i, int j, int color, int[][] image, boolean[][] visited, int precol) {
+    if (i >= image.length || j >= image[0].length
+        || i < 0 || j < 0 ||
+         visited[i][j] || image[i][j] != precol)
+      return;
+    
+    int prevcol = image[i][j];
+    visited[i][j] = true;
+    image[i][j] = color;
 
-            for (int[] d : dir) {
-                int nr = r + d[0];
-                int nc = c + d[1];
-
-                if (nr < n && nc < m && nc >= 0 && nr >= 0 && !visited[nr][nc] && image[nr][nc] == curcol) {
-                    q.offer(new int[] { nr, nc});
-                    visited[nr][nc] = true;
-                    image[nr][nc] = color;
-                }
-            }
-
-        }
-        return image;
+    for (int[] d : dir) {
+      int nr = i + d[0];
+      int nc = j + d[1];
+      dfs(nr, nc, color, image, visited, prevcol);
     }
+  }
 }
