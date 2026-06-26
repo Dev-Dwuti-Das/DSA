@@ -1,48 +1,45 @@
 class Solution {
-    public int[] findOrder(int numCourses, int[][] edges) {
-        int V = numCourses;
+    public int[] findOrder(int V, int[][] box) {
+      int[] inedges = new int[V];
+      int[] res = new int[V];
+      List<List<Integer>> adj = new ArrayList<>();
+      List<Integer> temp = new ArrayList<>();
+      Queue<Integer> q = new LinkedList<>();
 
-        List<List<Integer>> adj = new ArrayList<>();
-        int[] res = new int[V];
-
-        for (int k = 0; k < V; k++) {
-            adj.add(new ArrayList<>());
+      for(int i = 0; i < V; i++){
+        adj.add(new ArrayList<>());
+      }
+      for(int[] e : box){
+        adj.get(e[1]).add(e[0]);
+      }
+      for(int i = 0; i < V; i++){
+        for(int x : adj.get(i)){
+          inedges[x]++;
         }
+      }
 
-        for (int[] e : edges) {
-            adj.get(e[1]).add(e[0]);
+      for(int i = 0; i < V; i++){
+        if(inedges[i] == 0){
+          q.offer(i);
         }
+      }
 
-        int[] inorder = new int[V];
-        for (int i = 0; i < V; i++) {
-            for (int x : adj.get(i)) {
-                inorder[x]++;
-            }
-        }
+      int count = 0;
+      while(!q.isEmpty()){
+        int item = q.poll();
+        temp.add(item);
+        count++;
 
-        Queue<Integer> q = new LinkedList<>();
-        for (int i = 0; i < V; i++) {
-            if (inorder[i] == 0) {
-                q.offer(i);
-            }
+        for(int nei : adj.get(item)){
+          inedges[nei]--;
+          if(inedges[nei] == 0) q.offer(nei);
         }
-        
-        int count = 0;
-        int i = 0;
-        while (!q.isEmpty()) {
-            int item = q.poll();
-            count++;
-            res[i] = item;
-            i++;
-            for (int x : adj.get(item)) {
-                inorder[x]--;
-                if (inorder[x] == 0) {
-                    q.offer(x);
-                }
-            }
+      }
 
-        }
-        if(count != V) return new int[0]; 
-     return res; 
+      for(int i = 0; i < temp.size(); i++){
+        res[i] = temp.get(i);
+      }
+
+    return count == V ? res : new int[]{};
     }
 }
