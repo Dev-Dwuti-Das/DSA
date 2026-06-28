@@ -1,46 +1,35 @@
 class Solution {
-    public int minimumEffortPath(int[][] grid) {
-        PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-        int n = grid.length;
-        int m = grid[0].length;
-        int[][] dist = new int[grid.length][grid[0].length];
-        for (int i = 0; i < grid.length; i++) {
-            Arrays.fill(dist[i], (int) 1e9);
-        }
-        dist[0][0] = 0;
-        q.offer(new int[] { 0, 0, 0 });
-        int[][] dir = {
-                { -1, 0 },
-                { 1, 0 },
-                { 0, 1 },
-                { 0, -1 },
-        };
+  int[][] dir = {{1,0},{-1, 0},{0 ,1},{0, -1}};
+    public int minimumEffortPath(int[][] heights) {
+      int[][] dist = new int[heights.length][heights[0].length];
+      Queue<int[]> q = new PriorityQueue<>((a,b) -> a[2]-b[2]);    
+      q.offer(new int[]{0,0,0});   
+      for(int i = 0; i < heights.length; i++){
+        Arrays.fill(dist[i], (int)1e9);
+      }
+      dist[0][0] = 0;
 
-        while (!q.isEmpty()) {
-            int[] item = q.poll();
-            int x = item[1];
-            int y = item[2];
-            int diff = item[0];
+      while(!q.isEmpty()){
+        int[] item = q.poll();
+        int x = item[0];
+        int y = item[1];
+        int diff = item[2];
 
-            if (x == n - 1 && y == m - 1) {
-                return diff;
+        if(x == heights.length-1 && y == heights[0].length-1) return dist[x][y];
+
+        for(int[] d : dir){
+          int nr = x + d[0];
+          int nc = y + d[1];
+
+          if(nr < heights.length && nc < heights[0].length && nr >= 0 && nc >= 0){
+            int max = Math.max(diff, Math.abs(heights[nr][nc] - heights[x][y]));
+            if(dist[nr][nc] > max){
+              dist[nr][nc] = max;
+              q.offer(new int[]{nr, nc, dist[nr][nc]});
             }
-
-            for (int i = 0; i < 4; i++) {
-                int nx = x + dir[i][0];
-                int ny = y + dir[i][1];
-
-                if (nx >= 0 && nx < n && ny >= 0 && ny < m) {
-                    int nei_diff = Math.abs(grid[nx][ny] - grid[x][y]);         
-                    int max_diff = Math.max(diff, nei_diff);
-                    
-                    if (dist[nx][ny] > max_diff) {
-                        dist[nx][ny] = max_diff;
-                        q.offer(new int[] { max_diff, nx, ny });
-                    }
-                }
-            }
+          }
         }
-        return 0;
+      }
+    return 0;
     }
 }
